@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>India Wild Explorer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a class="brand" href="#home"><span class="brand-mark">🐅</span><span>India <b>Wild</b></span></a>
+  <div class="nav-links">
+    <a href="#home">Home</a>
+    <a href="#map">Explore Map</a>
+    <a href="#animals">Big Animals</a>
+    <a href="#forests">Forests &amp; Mountains</a>
+    <a href="#govern">Who Manages</a>
+  </div>
+</nav>
+
+<header class="hero" id="home">
+  <svg class="hero-art" id="heroArt" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
+  <canvas class="fireflies" id="fireflies"></canvas>
+  <div class="hero-content">
+    <p class="eyebrow">Forests · Mountains · Wildlife of India</p>
+    <h1>Where the <em>wild</em> still roars.</h1>
+    <p class="lede">Explore India's forests state by state, step inside its greatest national parks, and follow the comeback of tigers, lions, elephants and rhinos from 1999 to today.</p>
+    <div class="hero-cta">
+      <a class="btn primary" href="#map">Explore the map →</a>
+      <a class="btn ghost" href="#animals">Meet the big animals</a>
+    </div>
+    <div class="hero-stats" id="heroStats"></div>
+  </div>
+  <a class="scroll-cue" href="#map" aria-label="Scroll down"><span></span></a>
+</header>
+
+<section class="section" id="map">
+  <div class="section-head">
+    <p class="eyebrow">Interactive atlas</p>
+    <h2>India's green map</h2>
+    <p class="sub">Every state is coloured by how much of it is forest. Switch the layer to see where the big animals live. Click a state for its story, or a glowing pin to step inside a national park.</p>
+  </div>
+
+  <div class="atlas">
+    <aside class="atlas-side">
+      <div class="panel-block">
+        <label class="lbl">Map layer</label>
+        <div class="layer-list" id="layerList"></div>
+      </div>
+      <div class="panel-block">
+        <label class="lbl" for="parkSearch">Find a park</label>
+        <input id="parkSearch" class="search" type="search" placeholder="Try “Kaziranga” or “tiger”…" autocomplete="off">
+        <div class="park-list" id="parkList"></div>
+      </div>
+    </aside>
+
+    <div class="atlas-map" id="atlasMap">
+      <svg id="indiaMap" role="img" aria-label="Map of India"></svg>
+      <div class="map-legend" id="mapLegend"></div>
+      <div class="map-tools">
+        <button class="icon-btn" id="zoomIn" title="Zoom in">+</button>
+        <button class="icon-btn" id="zoomOut" title="Zoom out">−</button>
+        <button class="icon-btn" id="zoomReset" title="Reset view">⟲</button>
+        <button class="icon-btn" id="togglePins" title="Show / hide parks">📍</button>
+      </div>
+      <div class="tooltip" id="tooltip"></div>
+      <p class="map-hint">Scroll to zoom · drag to pan</p>
+    </div>
+
+    <aside class="atlas-info" id="atlasInfo"></aside>
+  </div>
+</section>
+
+<section class="section" id="animals">
+  <div class="section-head">
+    <p class="eyebrow">The big animals</p>
+    <h2>Counting India's giants</h2>
+    <p class="sub">Official census numbers from 1999 to today. Pick an animal to see its story, its population trend and where it lives.</p>
+  </div>
+  <div class="species-tabs" id="speciesTabs"></div>
+  <div class="species-stage">
+    <div class="species-card" id="speciesCard"></div>
+    <div class="chart-card">
+      <div class="chart-head">
+        <div>
+          <h3 id="trendTitle">Population trend</h3>
+          <p class="muted small" id="trendSub"></p>
+        </div>
+        <button class="chip" id="trendTableBtn">Show table</button>
+      </div>
+      <div class="chart" id="trendChart"></div>
+      <div class="chart-table" id="trendTable" hidden></div>
+    </div>
+  </div>
+  <div class="chart-card wide">
+    <div class="chart-head">
+      <div><h3 id="stateBarsTitle">Where they live</h3><p class="muted small" id="stateBarsSub"></p></div>
+    </div>
+    <div class="bars" id="stateBars"></div>
+  </div>
+  <div class="compare-card chart-card wide">
+    <div class="chart-head"><div><h3>Comeback index</h3><p class="muted small">Latest count compared with the first scientific count (first year = 100). Above 100 means the population grew.</p></div></div>
+    <div class="chart" id="indexChart"></div>
+  </div>
+</section>
+
+<section class="section" id="forests">
+  <div class="section-head">
+    <p class="eyebrow">Forests &amp; mountains</p>
+    <h2>A quarter of India is green</h2>
+    <p class="sub">Forest Survey of India maps every hectare by satellite every two years. Here is what it found.</p>
+  </div>
+  <div class="grid-3" id="forestStats"></div>
+  <div class="grid-2">
+    <div class="chart-card">
+      <div class="chart-head"><div><h3>Forest cover, 1999 – 2023</h3><p class="muted small">Square kilometres, India State of Forest Report (ISFR)</p></div></div>
+      <div class="chart" id="forestChart"></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-head"><div><h3>How dense are the forests?</h3><p class="muted small">Canopy density classes, ISFR 2021</p></div></div>
+      <div id="densityViz"></div>
+    </div>
+  </div>
+  <div class="grid-2">
+    <div class="chart-card">
+      <div class="chart-head"><div><h3>Greenest states</h3><p class="muted small">% of each state's area under forest</p></div>
+        <div class="seg" id="rankSeg"><button class="on" data-k="pct">By %</button><button data-k="fc">By area</button></div></div>
+      <div class="bars" id="rankBars"></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-head"><div><h3>Forest types</h3><p class="muted small">Share of India's forest cover (approx.)</p></div></div>
+      <div class="types" id="forestTypes"></div>
+    </div>
+  </div>
+  <h3 class="h3-gap">The great landscapes</h3>
+  <div class="landscapes" id="landscapes"></div>
+</section>
+
+<section class="section" id="govern">
+  <div class="section-head">
+    <p class="eyebrow">Who manages India's forests</p>
+    <h2>From Parliament to the forest guard</h2>
+    <p class="sub">Forests are a shared responsibility of the Centre and the States. Click any box to see what it does.</p>
+  </div>
+  <div class="gov-wrap">
+    <div class="org" id="org"></div>
+    <div class="org-detail" id="orgDetail"></div>
+  </div>
+  <div class="pa-strip" id="paStrip"></div>
+  <h3 class="h3-gap">Laws & milestones</h3>
+  <div class="timeline" id="timeline"></div>
+</section>
+
+<footer class="footer">
+  <p><b>Sources:</b> Forest Survey of India (ISFR 2021, 2023) · NTCA &amp; Wildlife Institute of India (All India Tiger Estimation 2006–2022, Status of Leopards 2022, SPAI 2024) · MoEFCC Project Elephant &amp; SAIEE 2021–25 · Gujarat Forest Department lion census 2025 · Assam Forest Department rhino estimation 2022.</p>
+  <p class="muted">Park-level numbers are rounded estimates. Office holders are as of 2025 and may change. Built for learning — India Wild Explorer.</p>
+</footer>
+
+<div class="modal" id="parkModal" aria-hidden="true">
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="pmTitle">
+    <button class="modal-close" data-close aria-label="Close">✕</button>
+    <div class="pm-hero"><svg id="pmArt" viewBox="0 0 1200 300" preserveAspectRatio="xMidYMid slice"></svg>
+      <div class="pm-hero-text"><p class="eyebrow" id="pmType"></p><h2 id="pmTitle"></h2><p id="pmState"></p></div>
+    </div>
+    <div class="pm-body">
+      <div class="pm-left">
+        <p id="pmDesc" class="pm-desc"></p>
+        <div class="pm-facts" id="pmFacts"></div>
+        <h4>Animal counts</h4>
+        <div class="pm-counts" id="pmCounts"></div>
+        <div id="pmTrendWrap"><h4 id="pmTrendTitle"></h4><div class="chart" id="pmTrend"></div></div>
+      </div>
+      <div class="pm-right">
+        <div class="spread-head"><h4>Wildlife spread in the forest</h4><span class="muted small" id="spreadNote"></span></div>
+        <div class="spread-wrap"><canvas id="spread"></canvas><div class="tooltip" id="spreadTip"></div></div>
+        <div class="spread-legend" id="spreadLegend"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/geo.js"></script>
+<script src="js/data.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/scenes.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
